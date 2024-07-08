@@ -19,6 +19,7 @@ import pandas as pd
 import list_md5 as lsmd5
 #from pandastable import TableModel
 #from ttkwidgets import CheckboxTreeview
+#new comment
 
 #text_box=None
 class duplicatfinder(tk.Frame):
