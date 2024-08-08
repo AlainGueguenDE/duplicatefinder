@@ -2,6 +2,7 @@
  A prototype for a duplicate file finder with a graphical interface
  this program is an attempt to learn and use the tkinter graphical interface around a duplicate file finder script also accessible through
  the command line as an external package  list_md5
+ this new gui display folder to process  and result in two eparate text_boxes . allow a better understanding and monitoring of the process
 
  the code explore various approach for the desing and implementation of graphical interfaces.
  the duplicate files are identified  in comparing size and MD5 checksum  over file s form different locations.
@@ -87,11 +88,11 @@ class duplicatfinder(tk.Frame):
             #fg="black",
             command=self.displaydfduplicate
         )
-
         self.output = ttk.Label(self.master,text="output result file name")
         self.entry = ttk.Entry(self.master)#,fg="black", bg="white")
         self.text_box=tk.Text(self.master, width = 95 , height = 10)
         self.status_box = tk.Text(self.master, width=95, height=10)
+
         #greeting.place(x=5,y=1)
         self.greeting.grid(column=0, row=0, sticky="W")
         #buttonfolders.pack(side=tk.LEFT)
@@ -100,7 +101,11 @@ class duplicatfinder(tk.Frame):
         self.cleanselection.grid(column=3, row=1,sticky="E")#, sticky="NSEW")   #.place(x=200,y=20)
 
         self.text_box.grid(column=0, row=2, columnspan=4, rowspan=2, sticky="W")  # , sticky="NSEW")   #.place(x=5,y=70)
-        self.status_box.grid(column=5, row=2, columnspan=2, rowspan=2, sticky="W")  # , sticky="NSEW")   #.place(x=5,y=70)
+        self.status_box.grid(column=4, row=2, columnspan=2, rowspan=2, sticky="W")  # , sticky="NSEW")   #.place(x=5,y=70)
+        # create a scrollbar for the status box .
+        self.vbar = ttk.Scrollbar(self.master, orient='vertical',command=self.status_box.yview)
+        self.vbar.grid(row=2, column=6 , rowspan=2,sticky='ns')
+        self.status_box['yscrollcommand'] = self.vbar.set
 
         self.output.grid(column=0, row=4, columnspan=1, sticky="W")
         self.entry.grid(column=1, row=4, columnspan=3, sticky="W")   #.place(x=150,y=400)#pack()#side = tk.RIGHT)
@@ -108,6 +113,10 @@ class duplicatfinder(tk.Frame):
         self.buttonDisplay.grid(column=1, row=5, sticky="NSEW")
         self.containerframe = ttk.Frame(self.master)
         self.containerframe.grid(column=0, row=9, columnspan=7,sticky="NSEW")
+        # is this needed?
+        self.containerframe.rowconfigure(0, weight=1)
+        self.containerframe.columnconfigure(0, weight=1)
+        #
         self.pt = pdTable(self.containerframe)
         self.pt.show()
 
