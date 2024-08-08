@@ -5,13 +5,13 @@
 
  the code explore various approach for the desing and implementation of graphical interfaces.
  the duplicate files are identified  in comparing size and MD5 checksum  over file s form different locations.
- Author Alain Gueguen gueguen.alain@gmail.com  2023/2024
+ Author Alain Gueguen gueguen.alain@gmail.com 2023/2024
 """
 
 from tkinter import *
 import tkinter as tk
 import tkinter.ttk as ttk
-from tkinter.filedialog import askopenfilename,askdirectory
+from tkinter.filedialog import askopenfilename, askdirectory
 import tktable
 from pandastable import Table as pdTable
 import pandas as pd
@@ -19,7 +19,6 @@ import pandas as pd
 import list_md5 as lsmd5
 #from pandastable import TableModel
 #from ttkwidgets import CheckboxTreeview
-#new comment
 
 #text_box=None
 class duplicatfinder(tk.Frame):
@@ -27,7 +26,7 @@ class duplicatfinder(tk.Frame):
     def __init__(self,master):
         self.dfduplicate=None
         self.master=master
-        #super().__iint__(*args, **kwargs)
+        #super().__init__(*args, **kwargs)
         self.master.grid()
         #self.geometry("640x480")
         #self.master.grid_columnconfigure(0, weight=1)
