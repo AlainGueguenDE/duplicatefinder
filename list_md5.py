@@ -174,9 +174,20 @@ def creatDFmd5LST_feedback(foldertosearchLST,resultfile,maintk):
     df = pd.DataFrame(columns=['filename', 'filepath','size','hashmd5'])
     starttime = time.time()
     compteurlocal=0
-    maintk.text_box.insert("1.0", "%s\n"%resultfile)
+    targetmessage=maintk.text_box
+    if maintk.status_box.winfo_exists():
+        #print("status block  window exists")
+        targetmessage = maintk.status_box
+    #else:
+    #    print("status block   window does not exist")
+    #status_box
+    #maintk.text_box.insert("1.0", "%s\n"%resultfile)
+    targetmessage.configure(bg='DarkGray')
+    targetmessage.insert("1.0", "%s\n"%resultfile)
     print (type(maintk))
-    maintk.text_box.update_idletasks()
+    #maintk.text_box.update_idletasks()
+    targetmessage.update_idletasks()
+
     for foldertosearch in foldertosearchLST:
         if len(foldertosearch) >0:
             print ("start in ",foldertosearch)
@@ -184,9 +195,8 @@ def creatDFmd5LST_feedback(foldertosearchLST,resultfile,maintk):
                 for filname in k:
                     compteurlocal+=1
                     if compteurlocal%100==0:
-                        maintk.text_box.insert("1.0", "%s\n"%compteurlocal)
-                        maintk.text_box.update_idletasks()
-                        #    break
+                        targetmessage.insert("1.0", "checked %s files \n"%compteurlocal)
+                        targetmessage.update_idletasks()
                     cmdline= "%s/%s"%(i,filname)
                     if os.path.exists(cmdline):
                         statinfo = os.stat(cmdline)
@@ -194,7 +204,7 @@ def creatDFmd5LST_feedback(foldertosearchLST,resultfile,maintk):
                     #mainstring= ("%s/%s | %s | %s \n"%(i,filname,statinfo.st_size,hashlib.md5(file_as_bytes(open(cmdline, 'rb'))).hexdigest()))
                     new_row={'filename': filname, 'filepath':"%s/%s"%(i,filname),'size':statinfo.st_size,'hashmd5':hashlib.md5(file_as_bytes(open(cmdline, 'rb'))).hexdigest()}
                     df.loc[compteurlocal] = new_row
-
+    targetmessage.configure(bg='white')
     df.to_csv( resultfile , encoding='utf-8', index=False)
     extractedpath=os.path.dirname(resultfile)
     prefix=Path(resultfile).stem
